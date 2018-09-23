@@ -1,0 +1,13 @@
+# Files
+npm-debug.log
+.DS_Store
+
+# Folders
+node_modules/
+bower_components/
+.sass-cache/
+src/libs/
+dist/
+.tmp/
+coverage/
+.idea/

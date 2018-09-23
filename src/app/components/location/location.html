@@ -1,0 +1,21 @@
+<li class="card card-{{ order || '0' }}">
+	<h2 class="card-title">{{ data.locale }}</h2>
+	<div class="card-content">
+		<span ng-class="data.tempColor">{{ data.temp }}</span>
+	</div>
+	<div class="card-footer">
+		<ul class="conditions" ng-if="!mobile && order == 1 || mobile && order == 0" ng-show="data">
+			<li>
+				<h3>{{ 'Humidity' | translate }}</h3>
+				<span>{{ data.humidity }}<small>%</small></span>
+			</li>
+			<li>
+				<h3>{{ 'Pressure' | translate }}</h3>
+				<span>{{ data.pressure }}<small>hPa</small></span>
+			</li>
+		</ul>
+		<div class="updatedAt">
+			<span ng-show="data">{{ 'Updated at' | translate }} {{ data.updatedAt }}</span>
+		</div>
+	</div>
+</li>

@@ -1,0 +1,7 @@
+@mixin color($color) {
+  color: $color;
+}
+
+.weather-cold { @include color(#69A3FF); }
+.weather-normal { @include color(#FF9632); }
+.weather-hot { @include color(#ED1946); }

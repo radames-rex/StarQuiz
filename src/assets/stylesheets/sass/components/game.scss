@@ -1,0 +1,118 @@
+.game {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      figure {
+        width: 60px;
+        height: 60px;
+        
+        img {
+          width: 60px;
+        }
+      }  
+
+      h2 {
+        font-size: 42px;
+        font-weight: 700;
+        margin: 0 24px;
+        font-family: Starwars, fantasy, sans-serif;
+        color: black;
+      }
+    }
+
+
+    .clock {
+      float: right;
+      margin-right: 24px;
+    }
+  }
+
+  .chars {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+
+    &-item {
+      height: 32vh;
+      width: 22vw;
+      margin: 1.2vw;
+      border: 1px solid black;
+    
+      figure {
+        width: 100%;
+        height: 23vh;
+        
+        img {
+          width: 60px;
+        }
+      } 
+    }
+
+    &-options {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 10vh;
+    }
+  }
+
+  footer {
+    padding: 0px;
+
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      li {
+        margin: 0 16px;
+        padding: 12px;
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+          opacity: 0.5;
+        }
+
+        &:first-child {
+          &::before {
+            content: '\f060';
+            font-family: 'Font Awesome 5 Free';
+            font-size: 18px;
+            vertical-align: middle;
+            margin: 0 8px;
+            font-weight: 900;
+            position: absolute;
+            top: 11px;
+            left: -18px;
+          }
+        }
+
+        &:last-child {
+          &::after {
+            content: '\f061';
+            font-family: 'Font Awesome 5 Free';
+            font-size: 18px;
+            vertical-align: middle;
+            margin: 0 8px;
+            font-weight: 900;
+            position: absolute;
+            top: 11px;
+            right: -18px;
+          }
+        }
+
+      }
+    }
+  }
+}
