@@ -2,7 +2,7 @@
 
 (function() {
 
-  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, $stateParams) {
+  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, $stateParams, Spin) {
     var vm = this;
 
     vm.currentPage = $stateParams.page;
@@ -156,13 +156,15 @@
 
     function init() {
       vm.chars = [];
+      Spin.start($('.chars'));
       GameService.getChars(vm.currentPage).then(function(data) {
         vm.chars = data;
+        Spin.stop($('.chars'));
       });
     }
   };
 
-  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', '$stateParams'];
+  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', '$stateParams', 'Spin'];
 
   angular
     .module('StarQuizApp.game')
