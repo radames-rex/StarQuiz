@@ -1,0 +1,25 @@
+.clock {
+	position: relative;
+
+	&-time {
+    z-index: 999;
+    position: absolute;
+    color: black;
+    top: 27px;
+    right: 15px;
+    font-weight: 700;
+    font-size: 24px;
+	}
+
+	&-alert {
+		z-index: 999;
+    position: absolute;
+    top: 28px;
+    right: 0;
+    color: #E91E63;
+    text-transform: uppercase;
+    font-size: 10px;
+    text-align: center;
+    font-weight: 900;
+	}
+}

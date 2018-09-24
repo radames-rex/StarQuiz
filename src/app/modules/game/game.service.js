@@ -9,11 +9,9 @@
      */
     this.getChars = function(page) {
       var promises = [];
-
       for (var i = page*ENV.PAGESIZE-7; i <= page*ENV.PAGESIZE; i++) {
         promises.push(swapi.people.id(i));
       };
-
       return $q.all(promises);
     };
 
@@ -59,14 +57,13 @@
           }
         } else {
           var points = 0;
-          if (result) points = 10
+          if (result) points = 10;
           personages.push({
             name : name,
             points : points
           });
         }
       }
-      console.log(personages);
       var expireDate = new Date(Date.now() + 6000000);
       $cookies.putObject('currentGame', personages, {'expires': expireDate});
     }
@@ -76,9 +73,7 @@
      */
     this.answerItem = function(name, realName) {
       var result = _normalizeName(realName).indexOf(_normalizeName(name)) > -1;
-
       _saveAction('ANSWER', realName, result);
-
       return result;
     };
 

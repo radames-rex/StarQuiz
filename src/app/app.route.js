@@ -15,13 +15,6 @@
         controller: 'MainCtrl',
         controllerAs: 'vm',
         permission: 'public'
-      })
-      .state('game', {
-        url: '/game/{page}',
-        templateUrl: 'app/modules/game/game.html',
-        controller: 'GameCtrl',
-        controllerAs: 'vm',
-        permission: 'public'
       });
 
     $urlRouterProvider.otherwise('/start');

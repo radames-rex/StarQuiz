@@ -8,9 +8,11 @@
       'ui.router',
       'pascalprecht.translate',
       'ne.swapi',
+      'angular-svg-round-progressbar',
+      'timer',
 
       'StarQuizApp.components',
-      'StarQuizApp.filters',
+      // 'StarQuizApp.filters',
       'StarQuizApp.helpers',
 
       'StarQuizApp.main',

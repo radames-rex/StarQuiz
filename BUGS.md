@@ -12,17 +12,11 @@ Problemas com a arquitetura:
 Problemas com uso do AngularJs
 - não há entendimento sobre os recursos disponíveis como @ngInject
 - controle de estado do DOM do "spinner" usando jQuery/angular.$ desnecessariamente, com mais de uma interação com o DOM por método (poderia/deveria ser u m ng-if/ng-show com controle do estado em um booleano no item da lista)
-- ng-app na tag html, poderia/deveria estar em um container dentro do body
-- Lista de itens do dashboard sem ng-repeat, duplicando itens na mão no template do Dashboard
-- Directive do component location é usada como element, sem replace:true, gerando um DOM inválido
-- routes do Dashboard deveriam ser declaradas no modulo do Dashboard
 
 
 Problemas com uso de javascript
 - 'use strict'; em todos arquivos fora da IIFE
-- console.log('Plus Ultra!'); na inicialização de um controller
 - attrs keys do JSON de i18n message-en-US.json e message-pt-BR.json estão como texto normal, usando espaços etc
-- uso do $interval sem controle de estado das requisições... deveria usar um timer com timeout, controlar o final de todas as requisições com $q.all e iniciar um novo timer para evitar disparar requisições sequenciais caso o servidor apresente alguma lentidão, embora o tempo seja de 10 minutos
 - setando um array como cookie para controlar cache.
 
 Problemas com CSS
@@ -35,9 +29,6 @@ Problemas com CSS
 Outros problemas:
 - Confusão entre termos "universalização" vs "internacionalização" demonstra pouco contato com i18n e l10n
 - versão desatualizada do AngularJs, embora o projeto seja novo.
-- Arquivo "Makefile" foi criado sem target alguma e com lowercase, o que não é reconhecido pelo make
-- Arquivo .yo-rc.json não é usado
-- Arquivo .bowerrc com declarações default
 - eslint extremamente permissivo
 - $logProvider em modo debug sem parametrização p/ dev/prod
 

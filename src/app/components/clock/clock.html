@@ -1,0 +1,24 @@
+<div class="clock">
+	<timer interval="1000" countdown="vm.time" finish-callback="vm.finished()">
+		<div class="clock-time">
+			<span>{{minutes}}:{{sseconds}}</span>
+		</div>
+		<div class="clock-alert" style="display: none;">
+			<span>Tempo Esgotado</span>
+		</div>
+		<round-progress
+	    max="100"
+	    current="vm.progress"
+	    color="#000000"
+	    bgcolor="#eaeaea"
+	    radius="40"
+	    stroke="10"
+	    semi="false"
+	    rounded="true"
+	    clockwise="true"
+	    responsive="false"
+	    duration="1000"
+	    animation="easeInOutQuart"
+	    animation-delay="0"></round-progress>
+	</timer>
+</div>
