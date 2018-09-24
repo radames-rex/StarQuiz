@@ -24,8 +24,9 @@
           return personage.name === name;
         });
       if (action === 'DETAILS') {
-        if (char) char.viewed = true;
-        else {
+        if (char) {
+          char.viewed = true;
+        } else {
           personages.push({
             name : name,
             viewed : true
@@ -103,7 +104,7 @@
      * Verifica se o nome do persoangem está correto.
      */
     this.answerItem = function(name, realName) {
-      var result = _normalizeName(realName).indexOf(_normalizeName(name)) > -1;
+      var result = name ? _normalizeName(realName).indexOf(_normalizeName(name)) > -1 : false;
       _saveAction('ANSWER', realName, result);
       return result;
     };
