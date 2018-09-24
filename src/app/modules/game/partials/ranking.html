@@ -6,13 +6,13 @@
 		</div>
 		<div class="modal-content-details">
 			<ul class="list">
-				<li ng-repeat="rank in vm.ranking">
+				<li ng-repeat="rank in vm.ranking | orderBy:'-total'">
 					<div>
 						<span>{{rank.player.name}}</span>
 						<small>{{rank.player.email}}</small>
 					</div>
 					<div>
-						{{rank.points || '0'}}
+						{{rank.total || '0'}}
 					</div>
 				</li>
 			</ul>

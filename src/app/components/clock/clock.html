@@ -1,5 +1,5 @@
 <div class="clock">
-	<timer interval="1000" countdown="vm.time" finish-callback="vm.finished()">
+	<timer interval="1000" countdown="vm.start || vm.time" finish-callback="vm.finished()">
 		<div class="clock-time">
 			<span>{{minutes}}:{{sseconds}}</span>
 		</div>

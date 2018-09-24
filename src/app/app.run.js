@@ -14,6 +14,7 @@
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams) {
         $rootScope.state = toState.name;
+        if (toState.name === 'main') $rootScope.lastTime = '';
       });
   }
 

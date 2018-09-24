@@ -1,20 +1,20 @@
 (function() {
   'use strict';
 
-	angular
+  angular
 	  .module('StarQuizApp.game', [])
 	  .config(routes);
 
-	  function routes($stateProvider) {
+   function routes($stateProvider) {
 	    // Configuração dos estados e rotas da aplicação
-	  	$stateProvider
+      $stateProvider
 		    .state('game', {
-		      url: '/game/{page}',
-		      templateUrl: 'app/modules/game/game.html',
-		      controller: 'GameCtrl',
-		      controllerAs: 'vm',
-		      permission: 'public'
-		    });
-	  }
+          url: '/game/{page}',
+          templateUrl: 'app/modules/game/game.html',
+          controller: 'GameCtrl',
+          controllerAs: 'vm',
+          permission: 'public'
+        });
+}
 
 })();

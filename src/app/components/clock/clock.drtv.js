@@ -16,10 +16,12 @@
         vm = this;
 
         vm.progress = 0;
+        vm.start = $rootScope.lastTime;
         vm.time = parseInt($scope.time);
 
         $scope.$on('timer-tick', function (event, args) {
           vm.progress = (vm.time - (args.millis/1000))*100/vm.time;
+          $rootScope.lastTime = (args.millis/1000);
         });
 
         vm.finished = function() {
