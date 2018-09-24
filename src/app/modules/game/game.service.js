@@ -4,27 +4,6 @@
 
   var GameService = function($http, ENV, $q, swapi, $cookies) {
 
-    /*
-     * Faz a requisição para a API SWAPI e pagina os resultados para a rota atual com dados dos personagens.
-     */
-    this.getChars = function(page) {
-      var promises = [];
-      for (var i = page*ENV.PAGESIZE-7; i <= page*ENV.PAGESIZE; i++) {
-        promises.push(swapi.people.id(i));
-      };
-      return $q.all(promises);
-    };
-
-    /*
-     * Busca fotos dos personagens usando o databank oficial, mas não funciona em development environment (localhost).
-     */
-    this.getPictures = function(search) {
-      return $http({
-        url: 'https://www.starwars.com/_sac/'+search+'?s&p=section/search_module&f[search_section]=Databank',
-        method: 'GET'
-      });
-    };
-
     function _normalizeName(name) {
       return name
         .toString()
@@ -67,6 +46,46 @@
       var expireDate = new Date(Date.now() + 6000000);
       $cookies.putObject('currentGame', personages, {'expires': expireDate});
     }
+
+    /*
+     * Faz a requisição para a API SWAPI e pagina os resultados para a rota atual com dados dos personagens.
+     */
+    this.getChars = function(page) {
+      var promises = [];
+      for (var i = page*ENV.PAGESIZE-7; i <= page*ENV.PAGESIZE; i++) {
+        promises.push(swapi.people.id(i));
+      };
+      return $q.all(promises);
+    };
+
+    /*
+     * Faz a requisição para a API SWAPI por mais detalhes dos personagens.
+     */
+    this.getDetails = function(urlDetails) {
+      var promises = [];
+      _.forEach(urlDetails, function(url) {
+        if (url) {
+          if (Array.isArray(url)) {
+            _.forEach(url, function(u) {
+              promises.push(swapi.get(u));
+            });
+          } else {
+            promises.push(swapi.get(url));
+          }
+        }
+      });
+      return $q.all(promises);
+    };
+
+    /*
+     * Busca fotos dos personagens usando o databank oficial, mas não funciona em development environment (localhost).
+     */
+    this.getPictures = function(search) {
+      return $http({
+        url: 'https://www.starwars.com/_sac/'+search+'?s&p=section/search_module&f[search_section]=Databank',
+        method: 'GET'
+      });
+    };
 
     /*
      * Verifica se o nome do persoangem está correto.

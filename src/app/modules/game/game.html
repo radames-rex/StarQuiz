@@ -18,7 +18,7 @@
 			<div class="chars-options">
 				<div class="options" ng-hide="vm.showAnswer(c.name)">
 					<button type="button" class="btn btn-chars" ng-click="vm.showInput($index)">?</button>
-					<button type="button" class="btn btn-chars" ng-click="vm.showDetails(c.name)">...</button>
+					<button type="button" class="btn btn-chars" ng-click="vm.showDetails(c, $index)">...</button>
 				</div>
 				<div class="inputs" style="display: none;">
 					<input type="text" ng-model="vm.name">
@@ -32,6 +32,7 @@
 					<span class="answer answer-wrong">Errado</span>
 				</div>
 			</div>
+			<div class="modal" ng-include="'./app/modules/game/partials/modal.html'" style="display: none;"></div>
 		</div>
 	</div>
 	<footer>

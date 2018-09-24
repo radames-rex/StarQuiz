@@ -1,0 +1,37 @@
+<div class="modal">
+	<div class="modal-content">
+		<div class="modal-content-header">
+			<span class="title">Detalhes</span>
+			<span class="close" ng-click="vm.closeModal($index)">X</span>
+		</div>
+		<div class="modal-content-details">
+			<div class="top">
+				<figure>
+					<img ng-src="./assets/images/databank/{{vm.getUrlId(c.url)}}.jpeg">
+				</figure>
+				<ul class="info">
+					<li ng-show="vm.details.species !== 'n/a'">Specie: <span>{{ vm.details.species.toString() }}</span></li>
+					<li ng-show="c.gender !== 'n/a'">Gender: <span>{{ c.gender }}</span></li>
+					<li ng-show="c.birth_year !== 'n/a'">Birthday: <span>{{ c.birth_year }}</span></li>
+					<li ng-show="c.height !== 'n/a'">Height: <span>{{ c.height }}</span></li>
+					<li ng-show="c.mass !== 'n/a'">Mass: <span>{{ c.mass }}</span></li>
+					<li ng-show="c.hair_color !== 'n/a'">Hair: <span>{{ c.hair_color }}</span></li>
+					<li ng-show="c.eye_color !== 'n/a'">Eyes: <span>{{ c.eye_color }}</span></li>
+					<li ng-show="vm.details.planet !== 'n/a'">Planet: <span>{{ vm.details.planet }}</span></li>
+				</ul>
+			</div>
+			<div class="bottom">
+				<div>Movies:
+					<p ng-show="vm.details.films !== 'n/a'">
+						{{ vm.details.films.toString() }}
+					</p>
+				</div>
+				<div>Vehicles:
+					<p ng-show="vm.details.vehicles !== 'n/a'">
+						{{ vm.details.vehicles.toString() }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -17,6 +17,7 @@
     vm.hideInput = hideInput;
     vm.tryName = tryName;
     vm.showDetails = showDetails;
+    vm.closeModal = closeModal;
     vm.showAnswer = showAnswer;
 
     function getUrlId(url) {
@@ -48,14 +49,67 @@
       }
     }
 
+    function _infoType(url) {
+      if (url.indexOf('planets') > -1) return 'planet';
+      else if (url.indexOf('films') > -1) return 'films';
+      else if (url.indexOf('species') > -1) return 'species';
+      else if (url.indexOf('vehicles') > -1) return 'vehicles';
+    }
+
+    function _getCharDetails(urlDetails, index) {
+      GameService.getDetails(urlDetails).then(function(data) {
+        vm.details = {};
+        _.forEach(data,function(item) {
+          switch (_infoType(item.url)){
+            case 'planet' : {
+              vm.details.planet = item.name;
+              break;
+            }
+            case 'films' : {
+              vm.details.films = vm.details.films || [];
+              vm.details.films.push(item.title);
+              break;
+            }
+            case 'species' : {
+              vm.details.species = vm.details.species || [];
+              vm.details.species.push(item.name);
+              break;
+            }
+            case 'vehicles' : {
+              vm.details.vehicles = vm.details.vehicles || [];
+              vm.details.vehicles.push(item.name);
+              break;
+            }
+            default: {
+              break;
+            }
+          }
+        });
+        _showModal(index);
+      });
+    }
+
+    function _showModal(index) {
+      $('#item-'+index+' .modal').show();
+    }
+
+    function closeModal(index) {
+      $('#item-'+index+' .modal').hide();
+    }
+
     function tryName(name, realName, index) {
       var result = GameService.answerItem(name, realName);
       _showInputResult(result, index);
     }
 
-    function showDetails(name, index) {
-      GameService.detailItem(name);
-      // _showModal();
+    function showDetails(char, index) {
+      GameService.detailItem(char.name);
+      _getCharDetails([
+        char.homeworld,
+        char.films,
+        char.species,
+        char.vehicles
+      ], index);
     }
 
     function showAnswer(name, answer) {
