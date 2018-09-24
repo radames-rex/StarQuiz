@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  function ClockDrtv($rootScope) {
+  function ClockDrtv($rootScope, GameService) {
     return {
       'restrict'     : 'AE',
       'templateUrl'  : 'app/components/clock/clock.html',
@@ -25,12 +25,14 @@
         vm.finished = function() {
           $('.clock-time').hide();
           $('.clock-alert').show();
+          $rootScope.total = GameService.showResults();
+          $('#modal-results .modal').show();
         };
       }
     };
   }
 
-  ClockDrtv.$inject = ['$rootScope'];
+  ClockDrtv.$inject = ['$rootScope', 'GameService'];
 
   angular
     .module('StarQuizApp.components')

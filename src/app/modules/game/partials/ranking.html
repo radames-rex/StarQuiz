@@ -1,0 +1,21 @@
+<div class="modal">
+	<div class="modal-content">
+		<div class="modal-content-header">
+			<span class="title">Pontuação Geral!</span>
+			<span class="close" ui-sref="main">X</span>
+		</div>
+		<div class="modal-content-details">
+			<ul class="list">
+				<li ng-repeat="rank in vm.ranking">
+					<div>
+						<span>{{rank.player.name}}</span>
+						<small>{{rank.player.email}}</small>
+					</div>
+					<div>
+						{{rank.points || '0'}}
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+<div class="modal">
+	<div class="modal-content">
+		<div class="modal-content-header">
+			<span class="title">Quiz finalizado!</span>
+			<span class="close" ng-click="vm.closeResults()">X</span>
+		</div>
+		<div class="modal-content-details">
+			<div class="points">
+				{{total}} <small>pontos</small>
+			</div>
+			<div class="save">
+				<h3>Preencha o formulário abaixo para salvar sua pontuação:</h3>
+				<small>* Campo obrigatório</small>
+				<form name="vm.saveForm" ng-submit="vm.saveResult(total)">
+					<label for="">Nome*</label>
+					<input type="text" ng-model="vm.player.name" autofocus="true" required="true">
+					<label for="">Email</label>
+					<input type="text" ng-model="vm.player.email">
+					<button class="btn btn-results">Salvar!</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -19,7 +19,7 @@ input {
 
   &:focus {
     outline: none !important;
-    border: 1px solid #4CAF50;
+    border: 1px solid #000000;
     border-width: 0 0 1px 0;
 
     &::-webkit-input-placeholder {
@@ -29,7 +29,7 @@ input {
 }
 
 label {
-  color: #d0011b;
+  color: #000000;
 }
 
 button {
@@ -66,6 +66,16 @@ button {
     padding: 8px 12px;
     font-size: 16px;
     font-weight: 700;
+  }
+
+  &-results {
+    width: 200px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 12px auto;
   }
 
   &:active {
@@ -110,6 +120,10 @@ button {
   &-wrong {
     color: #E91E63;
   }
+}
+
+small {
+  font-size: 80%;
 }
 
 body {

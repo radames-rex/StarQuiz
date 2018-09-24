@@ -19,24 +19,8 @@
     vm.showDetails = showDetails;
     vm.closeModal = closeModal;
     vm.showAnswer = showAnswer;
-
-    function getUrlId(url) {
-      return url.replace('https://swapi.co/api/people/', '').replace('/','');
-    }
-
-    function showInput(index) {
-      vm.name = '';
-      $('.chars-options .options').show();
-      $('.chars-options .inputs').hide();
-      $('#item-'+index+' .options').hide();
-      $('#item-'+index+' .inputs').show();
-      $('#item-'+index+' .inputs input').focus();
-    }
-
-    function hideInput(index) {
-      $('#item-'+index+' .inputs').hide();
-      $('#item-'+index+' .options').show();
-    }
+    vm.closeResults = closeResults;
+    vm.saveResult = saveResult;
 
     function _showInputResult(result, index) {
       if (result) {
@@ -93,8 +77,56 @@
       $('#item-'+index+' .modal').show();
     }
 
+    function _showRanking() {
+      vm.ranking = GameService.getRanking();
+      $('#modal-ranking .modal').show();
+    }
+
+    function _formValidate() {
+      if(vm.saveForm.$invalid) {
+        toastr.error('Preencha os campos obrigatórios!', 'Erro!', {
+          closeButton: true
+        });
+        return false;
+      }
+      return true;
+    }
+
+    function saveResult(total) {
+      if (_formValidate()) {
+        GameService.save({
+          total: total,
+          player: vm.player
+        });
+        _showRanking();
+      }
+    }
+
+    function getUrlId(url) {
+      return url.replace('https://swapi.co/api/people/', '').replace('/','');
+    }
+
+    function showInput(index) {
+      vm.name = '';
+      $('.chars-options .options').show();
+      $('.chars-options .inputs').hide();
+      $('#item-'+index+' .options').hide();
+      $('#item-'+index+' .inputs').show();
+      $('#item-'+index+' .inputs input').focus();
+    }
+
+    function hideInput(index) {
+      $('#item-'+index+' .inputs').hide();
+      $('#item-'+index+' .options').show();
+    }
+
     function closeModal(index) {
       $('#item-'+index+' .modal').hide();
+    }
+
+    function closeResults() {
+      $('#modal-results .modal').hide();
+      _showRanking();
     }
 
     function tryName(name, realName, index) {

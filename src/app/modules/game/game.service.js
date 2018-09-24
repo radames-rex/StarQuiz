@@ -47,6 +47,10 @@
       $cookies.putObject('currentGame', personages, {'expires': expireDate});
     }
 
+    function _cleanCookies() {
+      $cookies.remove('currentGame');
+    }
+
     /*
      * Faz a requisição para a API SWAPI e pagina os resultados para a rota atual com dados dos personagens.
      */
@@ -112,6 +116,42 @@
           return personage.name === name;
         });
       return char && (char.points || char.points === 0) ? char.points : -1;
+    };   
+
+    /*
+     * Exibe o Resultado final e opções para o jogador.
+     */
+    this.showResults = function() {
+      var currentGame = $cookies.getObject('currentGame') || [],
+        total = 0;
+      _.forEach(currentGame, function(personage) {
+        if(personage.points) total = total + personage.points;
+      });
+      return total;
+    };   
+
+    /*
+     * Salva os resultados na localStorage.
+     */
+    this.save = function(data) {
+      var ranking = localStorage.getItem('ranking') || [];
+      if ((Array.isArray(ranking) && ranking.length > 0) || ranking) {
+        ranking = JSON.parse(ranking);
+      }
+      ranking.push(data);
+      localStorage.setItem('ranking', JSON.stringify(ranking));
+      _cleanCookies();
+    }; 
+
+    /*
+     * Retorna todos os resultados armazenados na localStorage.
+     */
+    this.getRanking = function(data) {
+      var ranking = localStorage.getItem('ranking') || [];
+      if ((Array.isArray(ranking) && ranking.length > 0) || ranking) {
+        ranking = JSON.parse(ranking);
+      }
+      return ranking;
     };    
   };
 

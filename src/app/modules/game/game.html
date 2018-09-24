@@ -8,7 +8,7 @@
 				Starquiz!
 			</h2>
 		</div>
-		<clock time="120"></clock>
+		<clock time="2"></clock>
 	</header>
 	<div class="chars">
 		<div class="chars-item" id="item-{{$index}}" ng-repeat="c in vm.chars" ng-if="c.url">
@@ -34,6 +34,12 @@
 			</div>
 			<div class="modal" ng-include="'./app/modules/game/partials/modal.html'" style="display: none;"></div>
 		</div>
+	</div>
+	<div id="modal-results">
+		<div class="modal" ng-include="'./app/modules/game/partials/result.html'" style="display: none;"></div>
+	</div>
+	<div id="modal-ranking">
+		<div class="modal" ng-include="'./app/modules/game/partials/ranking.html'" style="display: none;"></div>
 	</div>
 	<footer>
 		<ul>

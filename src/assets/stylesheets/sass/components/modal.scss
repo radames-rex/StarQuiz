@@ -50,6 +50,67 @@
 					padding: 6px;
 				}
 			}
+
+			.points {
+				display: flex;
+		    justify-content: center;
+		    height: 18vh;
+		    align-items: center;
+		    font-size: 58px;
+		    font-weight: 900;
+
+		    small {
+		    	margin-left: 6px;
+		    }
+			}
+
+			.save {
+		    height: 10vh;
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 18px;
+
+		    small {
+		    	color: #E91E63;
+		    	margin: 6px;
+		    }
+
+		    form {
+					width: 72%;
+		    	display: flex;
+		    	flex-direction: column;
+		    	margin: 16px;
+					font-size: 14px;
+		    }
+			}
+
+			.list {
+		    height: 46vh;
+		    margin: 28px;
+		    overflow-y: scroll;
+		    text-align: center;
+		    border: 1px solid black;
+		    border-radius: 4px;
+		    padding: 12px;	
+
+		    li {
+		    	display: flex;
+		    	justify-content: space-between;
+				  padding: 6px;
+
+				  div {
+				  	display: flex;
+		    		flex-direction: column;
+		    		align-items: flex-start;
+				  }
+
+		    	&:nth-child(2n+1) {
+				    background-color: rgba(128, 128, 128, 0.42);
+		    	}
+		    }			
+			}
 		}
   }	
 }
