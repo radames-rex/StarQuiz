@@ -2,8 +2,10 @@
 
 (function() {
 
-  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, Spin, $window) {
+  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, Spin, $window, $stateParams) {
     var vm = this;
+
+    vm.currentPage = $stateParams.page;
 
     vm.ct = [0,1,2,3,4,5,6,7];
   	// ID respectivos => Nuuk, Urubici, Nairobi
@@ -37,36 +39,42 @@
     init();
 
     function init() {
-      vm.weather = [];
-      var weatherFromCache = $cookies.getObject('weather'); // Verifica o cache
-      if (weatherFromCache) {
-        vm.hasCache = true;
-        vm.weather = weatherFromCache;
-      } else {
-        vm.hasCache = false;
-        _.forEach(citiesIDs, function(ID, key) {
-          GameService.getWeather(ID).then(function(response) {
-            if (response.data) {
-              var location = response.data;
-              vm.weather.push({
-                locale    : location.name+', '+location.sys.country,
-                temp      : Math.ceil(location.main.temp)+'º',
-                humidity  : Math.ceil(location.main.humidity),
-                pressure  : Math.ceil(location.main.pressure),
-                updatedAt : moment(new Date()).format('HH:mm:ss A'),
-                tempColor : colorWeather(location.main.temp)
-              });
-            }
-            Spin.stop($('.card-'+key+' .card-content'), true);
-            var expireDate = new Date(Date.now() + 600000);
-            $cookies.putObject('weather', vm.weather, {'expires': expireDate}); // Armazena dados no cache
-          });
+      // vm.weather = [];
+      // var weatherFromCache = $cookies.getObject('weather'); // Verifica o cache
+      // if (weatherFromCache) {
+      //   vm.hasCache = true;
+      //   vm.weather = weatherFromCache;
+      // } else {
+      //   vm.hasCache = false;
+      //   _.forEach(citiesIDs, function(ID, key) {
+      //     GameService.getWeather(ID).then(function(response) {
+      //       if (response.data) {
+      //         var location = response.data;
+      //         vm.weather.push({
+      //           locale    : location.name+', '+location.sys.country,
+      //           temp      : Math.ceil(location.main.temp)+'º',
+      //           humidity  : Math.ceil(location.main.humidity),
+      //           pressure  : Math.ceil(location.main.pressure),
+      //           updatedAt : moment(new Date()).format('HH:mm:ss A'),
+      //           tempColor : colorWeather(location.main.temp)
+      //         });
+      //       }
+      //       Spin.stop($('.card-'+key+' .card-content'), true);
+      //       var expireDate = new Date(Date.now() + 600000);
+      //       $cookies.putObject('weather', vm.weather, {'expires': expireDate}); // Armazena dados no cache
+      //     });
+      //   });
+      // }
+      GameService.getChars(vm.currentPage).then(function(data) {
+        console.log(data);
+        GameService.getPictures().then(function(resp) {
+          console.log(resp);
         });
-      }
+      });
     }
   };
 
-  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', 'Spin', '$window'];
+  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', 'Spin', '$window', '$stateParams'];
 
   angular
     .module('StarQuizApp.game')

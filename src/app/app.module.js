@@ -7,6 +7,7 @@
       'ngAria',
       'ui.router',
       'pascalprecht.translate',
+      'ne.swapi',
 
       'StarQuizApp.components',
       'StarQuizApp.filters',

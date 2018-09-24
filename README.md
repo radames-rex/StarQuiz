@@ -1,4 +1,4 @@
-![Project Logo](src/assets/images/logo.svg)
+![Project Logo](src/assets/images/logo-big.png)
 
 # StarQuiz | Desafio FrontEnd - S2IT
 
