@@ -2,79 +2,81 @@
 
 (function() {
 
-  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, Spin, $window, $stateParams) {
+  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, $stateParams) {
     var vm = this;
 
     vm.currentPage = $stateParams.page;
 
-    vm.ct = [0,1,2,3,4,5,6,7];
-  	// ID respectivos => Nuuk, Urubici, Nairobi
-    var citiesIDs = ['3421319','3445709','184745'];
+    // A API não informa a quantidade de personagens | workaround para paginar
+    vm.next = vm.currentPage < 11 ? parseInt(vm.currentPage) + 1 : vm.currentPage;
+    vm.previous = vm.currentPage > 1 ? parseInt(vm.currentPage) - 1 : vm.currentPage;
+    vm.chars = [];
 
-    vm.weather = [];
+    vm.getUrlId = getUrlId;
+    vm.showInput = showInput;
+    vm.hideInput = hideInput;
+    vm.tryName = tryName;
+    vm.showDetails = showDetails;
+    vm.showAnswer = showAnswer;
 
-    // Verifica se as dimensões da tela são mobile ou desktop
-    vm.thisIsMobileScreen = $window.innerWidth <= 640;
+    function getUrlId(url) {
+      return url.replace('https://swapi.co/api/people/', '').replace('/','');
+    }
 
-    // Recall de 10 em 10 minutos
-    $interval(function() {
-      init();
-    }, 601000);
+    function showInput(index) {
+      vm.name = '';
+      $('.chars-options .options').show();
+      $('.chars-options .inputs').hide();
+      $('#item-'+index+' .options').hide();
+      $('#item-'+index+' .inputs').show();
+      $('#item-'+index+' .inputs input').focus();
+    }
 
-    // Para testes
-    vm.colorWeather = colorWeather;
-    vm.init = init;
-    vm.hasCache = false;
+    function hideInput(index) {
+      $('#item-'+index+' .inputs').hide();
+      $('#item-'+index+' .options').show();
+    }
 
-    // Define as cores de acordo com a temperatura
-    function colorWeather(temp) {
-      var color = '';
-      if (temp <= 5) color = 'weather-cold';
-      else if (temp <= 25) color = 'weather-normal';
-      else color = 'weather-hot';
-      return color;
+    function _showInputResult(result, index) {
+      if (result) {
+        $('#item-'+index+' .inputs').hide();
+        $('#item-'+index+' .correct').show();
+      } else {
+        $('#item-'+index+' figure img').css('filter','grayscale(1)');
+        $('#item-'+index+' .inputs').hide();
+        $('#item-'+index+' .incorrect').show();
+      }
+    }
+
+    function tryName(name, realName, index) {
+      var result = GameService.answerItem(name, realName);
+      _showInputResult(result, index);
+    }
+
+    function showDetails(name, index) {
+      GameService.detailItem(name);
+      // _showModal();
+    }
+
+    function showAnswer(name, answer) {
+      var status = GameService.getItemStatus(name);
+      if (answer === 'correct') return !(status === 10 || status == 5);
+      if (answer === 'wrong') return !(status === 0);
+      if (!answer) return !(status === -1);
     }
 
   	// INIT
     init();
 
     function init() {
-      // vm.weather = [];
-      // var weatherFromCache = $cookies.getObject('weather'); // Verifica o cache
-      // if (weatherFromCache) {
-      //   vm.hasCache = true;
-      //   vm.weather = weatherFromCache;
-      // } else {
-      //   vm.hasCache = false;
-      //   _.forEach(citiesIDs, function(ID, key) {
-      //     GameService.getWeather(ID).then(function(response) {
-      //       if (response.data) {
-      //         var location = response.data;
-      //         vm.weather.push({
-      //           locale    : location.name+', '+location.sys.country,
-      //           temp      : Math.ceil(location.main.temp)+'º',
-      //           humidity  : Math.ceil(location.main.humidity),
-      //           pressure  : Math.ceil(location.main.pressure),
-      //           updatedAt : moment(new Date()).format('HH:mm:ss A'),
-      //           tempColor : colorWeather(location.main.temp)
-      //         });
-      //       }
-      //       Spin.stop($('.card-'+key+' .card-content'), true);
-      //       var expireDate = new Date(Date.now() + 600000);
-      //       $cookies.putObject('weather', vm.weather, {'expires': expireDate}); // Armazena dados no cache
-      //     });
-      //   });
-      // }
+      vm.chars = [];
       GameService.getChars(vm.currentPage).then(function(data) {
-        console.log(data);
-        GameService.getPictures().then(function(resp) {
-          console.log(resp);
-        });
+        vm.chars = data;
       });
     }
   };
 
-  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', 'Spin', '$window', '$stateParams'];
+  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', '$stateParams'];
 
   angular
     .module('StarQuizApp.game')

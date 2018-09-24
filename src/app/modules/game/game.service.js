@@ -2,15 +2,15 @@
 
 (function() {
 
-  var GameService = function($http, $log, ENV, $q, swapi) {
+  var GameService = function($http, ENV, $q, swapi, $cookies) {
 
     /*
-     * Faz a requisição para a API do tempo traz informações climáticas de determinada cidade (by ID).
+     * Faz a requisição para a API SWAPI e pagina os resultados para a rota atual com dados dos personagens.
      */
     this.getChars = function(page) {
       var promises = [];
 
-      for (var i = 1; i <= ENV.PAGESIZE; i++) {
+      for (var i = page*ENV.PAGESIZE-7; i <= page*ENV.PAGESIZE; i++) {
         promises.push(swapi.people.id(i));
       };
 
@@ -18,27 +18,90 @@
     };
 
     /*
-     * Faz a requisição para a API do tempo traz informações climáticas de determinada cidade (by ID).
+     * Busca fotos dos personagens usando o databank oficial, mas não funciona em development environment (localhost).
      */
-    this.getPictures = function() {
-      // var promises = [];
-
-      // for (var i = 1; i <= ENV.PAGESIZE; i++) {
-      //   promises.push(swapi.people.id(i));
-      // };
-
-      // return $q.all(promises);
+    this.getPictures = function(search) {
       return $http({
-        url: 'https://www.google.com.br/search?q=luke+skywalker&source=lnms&sa=X&ved=0ahUKEwj50b6Jw9LdAhVFDJAKHW-pAHEQ_AUICSgA&biw=1366&bih=689&dpr=1',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'text/html'
-        }
+        url: 'https://www.starwars.com/_sac/'+search+'?s&p=section/search_module&f[search_section]=Databank',
+        method: 'GET'
       });
     };
+
+    function _normalizeName(name) {
+      return name
+        .toString()
+        .trim()
+        .toUpperCase()
+        .replace('-',' ')
+        .replace(' ','');
+    }
+
+    function _saveAction(action, name, result) {
+      var personages = $cookies.getObject('currentGame') || [],
+        char = _.find(personages, function(personage) {
+          return personage.name === name;
+        });
+      if (action === 'DETAILS') {
+        if (char) char.viewed = true;
+        else {
+          personages.push({
+            name : name,
+            viewed : true
+          });
+        }
+      } else if (action === 'ANSWER') {
+        if (char) {
+          if (result) {
+            if (!char.viewed) char.points = 10;
+            else char.points = 5;
+          } else {
+            char.points = 0;
+          }
+        } else {
+          var points = 0;
+          if (result) points = 10
+          personages.push({
+            name : name,
+            points : points
+          });
+        }
+      }
+      console.log(personages);
+      var expireDate = new Date(Date.now() + 6000000);
+      $cookies.putObject('currentGame', personages, {'expires': expireDate});
+    }
+
+    /*
+     * Verifica se o nome do persoangem está correto.
+     */
+    this.answerItem = function(name, realName) {
+      var result = _normalizeName(realName).indexOf(_normalizeName(name)) > -1;
+
+      _saveAction('ANSWER', realName, result);
+
+      return result;
+    };
+
+    /*
+     * Marca se foram visualizados os detalhes do personagem, para reduzir a pontuação.
+     */
+    this.detailItem = function(name) {
+      _saveAction('DETAILS', name);
+    };  
+
+    /*
+     * Retorna se já responderam um item e com qual resultado.
+     */
+    this.getItemStatus = function(name) {
+      var personages = $cookies.getObject('currentGame') || [],
+        char = _.find(personages, function(personage) {
+          return personage.name === name;
+        });
+      return char && (char.points || char.points === 0) ? char.points : -1;
+    };    
   };
 
-  GameService.$inject = ['$http', '$log', 'ENV', '$q', 'swapi'];
+  GameService.$inject = ['$http', 'ENV', '$q', 'swapi', '$cookies'];
 
   angular
     .module('StarQuizApp.game')

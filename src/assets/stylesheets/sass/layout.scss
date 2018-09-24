@@ -19,7 +19,7 @@ input {
 
   &:focus {
     outline: none !important;
-    border: 1px solid #d0011b;
+    border: 1px solid #4CAF50;
     border-width: 0 0 1px 0;
 
     &::-webkit-input-placeholder {
@@ -58,8 +58,14 @@ button {
   cursor: pointer;
 
   &-chars {
-    padding: 6px 48px;
+    padding: 6px 44px;
     font-size: 18px;
+  }
+
+  &-confirm {
+    padding: 8px 12px;
+    font-size: 16px;
+    font-weight: 700;
   }
 
   &:active {
@@ -72,6 +78,37 @@ button {
     color: #FFFFFF;
     background-color: #000000;
     border-color: #FFFFFF;
+  }
+}
+
+.close {
+  margin: 10px;
+  font-size: 26px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }    
+
+  &:active {
+    opacity: 1;
+  }  
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.answer {
+  font-size: 28px;
+  font-weight: 900;
+
+  &-correct {
+    color: #4CAF50;
+  }
+
+  &-wrong {
+    color: #E91E63;
   }
 }
 

@@ -1,6 +1,6 @@
 <section class="game">
 	<header>
-		<div class="title">
+		<div class="title" ui-sref="main">
 			<figure>
 				<img src="./assets/images/logo-big.png" alt="StarQuiz!">
 			</figure>
@@ -11,20 +11,33 @@
 		<clock>s</clock>
 	</header>
 	<div class="chars">
-		<div class="chars-item" ng-repeat="c in vm.ct">
+		<div class="chars-item" id="item-{{$index}}" ng-repeat="c in vm.chars" ng-if="c.url">
 			<figure>
-				<img src="">
+				<img ng-src="./assets/images/databank/{{vm.getUrlId(c.url)}}.jpeg">
 			</figure>
 			<div class="chars-options">
-				<button type="button" class="btn btn-chars">?</button>
-				<button type="button" class="btn btn-chars">...</button>
+				<div class="options" ng-hide="vm.showAnswer(c.name)">
+					<button type="button" class="btn btn-chars" ng-click="vm.showInput($index)">?</button>
+					<button type="button" class="btn btn-chars" ng-click="vm.showDetails(c.name)">...</button>
+				</div>
+				<div class="inputs" style="display: none;">
+					<input type="text" ng-model="vm.name">
+					<button type="button" class="btn btn-confirm" ng-click="vm.tryName(vm.name, c.name, $index)">OK</button>
+					<div class="close" ng-click="vm.hideInput($index)"><i class="fas fa-times"></i></div>
+				</div>
+				<div class="correct" ng-hide="vm.showAnswer(c.name, 'correct')">
+					<span class="answer answer-correct">Correto</span>
+				</div>
+				<div class="incorrect" ng-hide="vm.showAnswer(c.name, 'wrong')">
+					<span class="answer answer-wrong">Errado</span>
+				</div>
 			</div>
 		</div>
 	</div>
 	<footer>
 		<ul>
-			<li>Anterior</li>
-			<li>Próximo</li>
+			<li ui-sref="game({page: vm.previous})" ng-class='vm.previous == vm.currentPage ? "invisible" : ""'">Anterior</li>
+			<li ui-sref="game({page: vm.next})" ng-class='vm.next == vm.currentPage ? "invisible" : ""'>Próximo</li>
 		</ul>
 	</footer>
 </section>
