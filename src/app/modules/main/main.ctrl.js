@@ -1,6 +1,7 @@
-'use strict';
 
 (function() {
+	'use strict';
+
 	/*
    * Controller para inicializar o jogo
    */

@@ -10,9 +10,10 @@
       'ne.swapi',
       'angular-svg-round-progressbar',
       'timer',
+      'ngAnimate',
+      'toastr',
 
       'StarQuizApp.components',
-      // 'StarQuizApp.filters',
       'StarQuizApp.helpers',
 
       'StarQuizApp.main',

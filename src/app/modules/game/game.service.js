@@ -1,9 +1,11 @@
-'use strict';
-
 (function() {
+  'use strict';
 
   var GameService = function($http, ENV, $q, swapi, $cookies) {
 
+    /*
+     * Função privada para normalizar o nome e facilitar o jogo.
+     */
     function _normalizeName(name) {
       return name
         .toString()
@@ -13,6 +15,9 @@
         .replace(' ','');
     }
 
+    /*
+     * Função privada para persistir temporareamente as ações do jogador.
+     */
     function _saveAction(action, name, result) {
       var personages = $cookies.getObject('currentGame') || [],
         char = _.find(personages, function(personage) {
@@ -47,6 +52,9 @@
       $cookies.putObject('currentGame', personages, {'expires': expireDate});
     }
 
+    /*
+     * Função privada para limpar o jogo ativo.
+     */
     function _cleanCookies() {
       $cookies.remove('currentGame');
     }

@@ -26,8 +26,8 @@
     "angular-translate": "^2.13.1",
     "angular-translate-loader-static-files": "^2.13.1",
     "angular-sanitize": "1.5.3",
-    "angular-toastr": "^2.1.1",
     "angular-animate": "1.5.3",
+    "angular-toastr": "^2.1.1",
     "jquery": "^3.2.1",
     "spin.js": "spinjs#^2.3.2",
     "moment": "momentjs#^2.18.1",
@@ -50,6 +50,12 @@
       "main": [
         "scss/font-awesome.scss",
         "fonts/*"
+      ]
+    },
+    "angular-toastr": {
+      "main": [
+        "./dist/angular-toastr.js",
+        "./dist/angular-toastr.css"
       ]
     }
   },

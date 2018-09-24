@@ -1,5 +1,24 @@
 {
-  "Humidity" : "Humidade",
-  "Pressure" : "Pressão",
-  "Updated at" : "Atualizado às"
+	"play" : "Jogar", 
+  "previous" : "Anterior",
+  "next" : "Próximo",
+  "details" : "Detalhes",
+  "specie" : "Espécie",
+	"gender" : "Gênero",
+	"birthday" : "Aniversário",
+	"height" : "Altura",
+	"mass" : "Peso",
+	"hair" : "Cabelo",
+	"eyes" : "Olhos",
+	"planet" : "Terra Natal/Planeta",
+	"movies" : "Filmes",
+	"vehicles" : "Veículos",
+	"ranking" : "Pontuação Geral",
+	"finished" : "Quiz finalizado",
+	"points" : "pontos",
+	"form_message" : "Preencha o formulário abaixo para salvar sua pontuação",
+	"required_field" : "Campo obrigatório",
+	"name" : "Nome",
+	"email" : "Email",
+	"save" : "Salvar"
 }

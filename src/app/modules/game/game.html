@@ -43,8 +43,8 @@
 	</div>
 	<footer>
 		<ul>
-			<li ui-sref="game({page: vm.previous})" ng-class='vm.previous == vm.currentPage ? "invisible" : ""'">Anterior</li>
-			<li ui-sref="game({page: vm.next})" ng-class='vm.next == vm.currentPage ? "invisible" : ""'>Próximo</li>
+			<li ui-sref="game({page: vm.previous})" ng-class='vm.previous == vm.currentPage ? "invisible" : ""'>{{ 'previous' | translate }}</li>
+			<li ui-sref="game({page: vm.next})" ng-class='vm.next == vm.currentPage ? "invisible" : ""'>{{ 'next' | translate }}</li>
 		</ul>
 	</footer>
 </section>

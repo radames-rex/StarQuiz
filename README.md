@@ -28,7 +28,7 @@ Para rodar os testes de qualidade de código:
 
 `gulp lint`
 
-Para rodar os testes unitários:
+Para rodar os testes unitários (TO DO):
 
 `gulp test`
 

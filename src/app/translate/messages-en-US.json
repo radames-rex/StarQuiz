@@ -1,5 +1,24 @@
 {
-  "Humidity" : "Humidity",
-  "Pressure" : "Pressure",
-  "Updated at" : "Updated at"
+	"play" : "Play",
+  "previous" : "Previous",
+  "next" : "Next",
+  "details" : "Details",
+  "specie" : "Specie",
+	"gender" : "Gender",
+	"birthday" : "Birthday",
+	"height" : "Height",
+	"mass" : "Mass",
+	"hair" : "Hair",
+	"eyes" : "Eyes",
+	"planet" : "Homeworld/Planet",
+	"movies" : "Movies",
+	"vehicles" : "Vehicles",
+	"ranking" : "Score Ranking",
+	"finished" : "End Quiz",
+	"points" : "points",
+	"form_message" : "Fill out the form below to save your score",
+	"required_field" : "Required Field",
+	"name" : "Name",
+	"email" : "Email",
+	"save" : "Save"	
 }

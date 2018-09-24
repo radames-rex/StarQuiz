@@ -12,13 +12,13 @@
 
     $locationProvider.hashPrefix('');
 
-    // Configuração do provider de universalização e da linguagem padrão.
+    // Configuração do provider de internacionalização e da linguagem padrão.
     $translateProvider.useStaticFilesLoader({
       prefix: 'app/translate/messages-',
       suffix: '.json'
     });
-    $translateProvider.preferredLanguage('en-US');
-    // $translateProvider.preferredLanguage('pt-BR');
+    // $translateProvider.preferredLanguage('en-US');
+    $translateProvider.preferredLanguage('pt-BR');
     // $translateProvider.preferredLanguage(navigator.language);
   }
 

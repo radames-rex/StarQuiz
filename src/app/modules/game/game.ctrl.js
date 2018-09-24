@@ -1,8 +1,7 @@
-'use strict';
-
 (function() {
+  'use strict';
 
-  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, $stateParams, Spin) {
+  var GameCtrl = function($scope, $interval, $timeout, GameService, $cookies, $stateParams, Spin, toastr) {
     var vm = this;
 
     vm.currentPage = $stateParams.page;
@@ -12,16 +11,19 @@
     vm.previous = vm.currentPage > 1 ? parseInt(vm.currentPage) - 1 : vm.currentPage;
     vm.chars = [];
 
-    vm.getUrlId = getUrlId;
-    vm.showInput = showInput;
-    vm.hideInput = hideInput;
-    vm.tryName = tryName;
-    vm.showDetails = showDetails;
-    vm.closeModal = closeModal;
-    vm.showAnswer = showAnswer;
+    vm.getUrlId     = getUrlId;
+    vm.showInput    = showInput;
+    vm.hideInput    = hideInput;
+    vm.tryName      = tryName;
+    vm.showDetails  = showDetails;
+    vm.closeModal   = closeModal;
+    vm.showAnswer   = showAnswer;
     vm.closeResults = closeResults;
-    vm.saveResult = saveResult;
+    vm.saveResult   = saveResult;
 
+    /*
+     * Função privada para exibir o campo de entrada do nome do personagem.
+     */
     function _showInputResult(result, index) {
       if (result) {
         $('#item-'+index+' .inputs').hide();
@@ -33,6 +35,9 @@
       }
     }
 
+    /*
+     * Função privada verificar o tipo de url.
+     */
     function _infoType(url) {
       if (url.indexOf('planets') > -1) return 'planet';
       else if (url.indexOf('films') > -1) return 'films';
@@ -40,7 +45,11 @@
       else if (url.indexOf('vehicles') > -1) return 'vehicles';
     }
 
+    /*
+     * Função privada retornar o resultado das requisições de detalhes.
+     */
     function _getCharDetails(urlDetails, index) {
+      Spin.start($('.chars'));
       GameService.getDetails(urlDetails).then(function(data) {
         vm.details = {};
         _.forEach(data,function(item) {
@@ -69,19 +78,29 @@
             }
           }
         });
+        Spin.stop($('.chars'));
         _showModal(index);
       });
     }
 
+    /*
+     * Função privada para exibir o modal de detalhes.
+     */
     function _showModal(index) {
       $('#item-'+index+' .modal').show();
     }
 
+    /*
+     * Função privada para exibir a pontuação de todos os jogadores.
+     */
     function _showRanking() {
       vm.ranking = GameService.getRanking();
       $('#modal-ranking .modal').show();
     }
 
+    /*
+     * Função privada para validar o formulário do jogador ao salvar seu resultado.
+     */
     function _formValidate() {
       if(vm.saveForm.$invalid) {
         toastr.error('Preencha os campos obrigatórios!', 'Erro!', {
@@ -92,6 +111,9 @@
       return true;
     }
 
+    /*
+     * Função pública chamar o calculo e exibir a pontuação.
+     */
     function saveResult(total) {
       if (_formValidate()) {
         GameService.save({
@@ -102,10 +124,16 @@
       }
     }
 
+    /*
+     * Função pública capturar o Id do personagem.
+     */
     function getUrlId(url) {
       return url.replace('https://swapi.co/api/people/', '').replace('/','');
     }
 
+    /*
+     * Função pública para exibir os campos de preenchimento do jogo.
+     */
     function showInput(index) {
       vm.name = '';
       $('.chars-options .options').show();
@@ -115,25 +143,40 @@
       $('#item-'+index+' .inputs input').focus();
     }
 
+    /*
+     * Função pública para esconder os campos de preenchimento do jogo.
+     */
     function hideInput(index) {
       $('#item-'+index+' .inputs').hide();
       $('#item-'+index+' .options').show();
     }
 
+    /*
+     * Função pública para fechar o modal de detalhes.
+     */
     function closeModal(index) {
       $('#item-'+index+' .modal').hide();
     }
 
+    /*
+     * Função pública para fechar o modal de fim de jogo.
+     */
     function closeResults() {
       $('#modal-results .modal').hide();
       _showRanking();
     }
 
+    /*
+     * Função pública para verificar cada tentativa.
+     */
     function tryName(name, realName, index) {
       var result = GameService.answerItem(name, realName);
       _showInputResult(result, index);
     }
 
+    /*
+     * Função pública para exibir os detalhes.
+     */
     function showDetails(char, index) {
       GameService.detailItem(char.name);
       _getCharDetails([
@@ -144,6 +187,9 @@
       ], index);
     }
 
+    /*
+     * Função pública para exibir a resposta em cada iteração.
+     */
     function showAnswer(name, answer) {
       var status = GameService.getItemStatus(name);
       if (answer === 'correct') return !(status === 10 || status == 5);
@@ -164,7 +210,7 @@
     }
   };
 
-  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', '$stateParams', 'Spin'];
+  GameCtrl.$inject = ['$scope', '$interval', '$timeout', 'GameService', '$cookies', '$stateParams', 'Spin', 'toastr'];
 
   angular
     .module('StarQuizApp.game')

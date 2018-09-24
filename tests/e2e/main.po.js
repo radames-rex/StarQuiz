@@ -1,9 +1,9 @@
 var AngularDashPage = function() {
 
-  this.token = element(by.model('weather'));
+  this.token = element(by.model('starquiz'));
 
   this.init = function() {
-	  browser.get('/#/dashboard/');
+	  browser.get('/#/start/');
   };
 
 };
