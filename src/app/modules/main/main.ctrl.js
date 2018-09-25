@@ -5,11 +5,11 @@
 	/*
    * Controller para inicializar o jogo
    */
-  var MainCtrl = function($scope) {
-    
+  var MainCtrl = function($scope, GameService) {
+    GameService.cleanCookies();
   };
 
-  MainCtrl.$inject = ['$scope'];
+  MainCtrl.$inject = ['$scope', 'GameService'];
 
   angular
     .module('StarQuizApp.main')

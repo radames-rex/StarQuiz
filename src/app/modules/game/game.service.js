@@ -61,6 +61,11 @@
     }
 
     /*
+     * Função pública para limpar o jogo ativo.
+     */
+     this.cleanCookies = _cleanCookies;
+
+    /*
      * Faz a requisição para a API SWAPI e pagina os resultados para a rota atual com dados dos personagens.
      */
     this.getChars = function(page) {
